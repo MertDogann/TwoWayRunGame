@@ -5320,14 +5320,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   limitXRight: 2
   limitXLeft: 5.9
-  xSpeed: 700
+  xSpeed: 793.95
   runningSpeed: 40
   accumulatingSpeed: 0
   ballTransform: {fileID: 4788988079535172661}
   animator: {fileID: 5776497231348132976}
   obstacleDownloadSpeed: 5
   shatteredObstacle: {fileID: 0}
-  lightning: {fileID: 0}
   strikingPoints: 0
   runParticle1: {fileID: 0}
   runParticle2: {fileID: 770125297}

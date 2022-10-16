@@ -19,10 +19,8 @@ public class CameraFollow : MonoBehaviour
     {
         if (playerTransform != null)
         {
-            //InvokeRepeating("MoveTheCamera", 1.0f, 2.0f);
             MoveTheCamera();
-            //transform.position = playerTransform.position + offsetVector;
-            //transform.LookAt(playerTransform.position);
+
         }
 
     }
@@ -32,8 +30,6 @@ public class CameraFollow : MonoBehaviour
 
         PlayerController currentSpeed = FindObjectOfType<PlayerController>();
         Vector3 camera = new Vector3(0, 0, currentSpeed.runningSpeed * cameraDistance);
-
-        //Tween myTween = transform.DOMove(new Vector3(transform.position.x, transform.position.y,camera.z ) + (playerTransform.position + offsetVector), 2);
         Vector3 targetToMove = (playerTransform.position + offsetVector) + camera;
         transform.position = Vector3.Lerp(transform.position, targetToMove, cameraFollowTime * Time.deltaTime);
         transform.LookAt(playerTransform.position);

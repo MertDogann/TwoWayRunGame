@@ -71,8 +71,6 @@ public class LevelController : MonoBehaviour
         startMenu.SetActive(false);
         gameMenu.SetActive(true);
         PlayerController.current.animator.SetBool("running", true);
-        LeftPlatformContoller leftPlatform = FindObjectOfType<LeftPlatformContoller>();
-        leftPlatform.animator.SetBool("GameStarted" , true);
         RightPlatformContoller rightPlatform = FindObjectOfType<RightPlatformContoller>();
         rightPlatform.animator.SetBool("GameStarted", true);
         Debug.Log("Start Baþladý");
@@ -116,8 +114,6 @@ public class LevelController : MonoBehaviour
         finishMenu.SetActive(true);
         PlayerController.current.animator.SetBool("win", true);
         PlayerController.current.animator.SetBool("running", false);
-        LeftPlatformContoller leftPlatform = FindObjectOfType<LeftPlatformContoller>();
-        leftPlatform.animator.SetBool("GameStarted", false);
         RightPlatformContoller rightPlatform = FindObjectOfType<RightPlatformContoller>();
         rightPlatform.animator.SetBool("GameStarted", false);
         ball.SetActive(false);

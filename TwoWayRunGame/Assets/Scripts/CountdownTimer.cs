@@ -10,10 +10,6 @@ public class CountdownTimer : MonoBehaviour
     bool working = false;
     bool started = false;
 
-
-    /// <summary>
-    /// Geri sayým sayacýnýn toplam süresini ayarlar
-    /// </summary>
     public float TotalTime
     {
         set
@@ -25,10 +21,6 @@ public class CountdownTimer : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Geri sayýmýn bitip bitmediðini söyler
-    /// </summary>
     public bool End
     {
         get
@@ -37,9 +29,6 @@ public class CountdownTimer : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Sayacý çalýþtýrýr
-    /// </summary>
     public void Run()
     {
         if (totalTime > 0)

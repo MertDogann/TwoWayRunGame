@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
     public float accumulatingSpeed;
     [SerializeField] Transform ballTransform;
     public Animator animator;
-    public Animator energy;
-    public Animator energyy;
     [SerializeField] float obstacleDownloadSpeed;
     [SerializeField] private GameObject shatteredObstacle;
     Rigidbody myRb;
@@ -57,90 +55,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
         runParticle1.transform.position = transform.position + new Vector3(-0.13f, -2f, -1f);
-        currentSpeed = runningSpeed;
-
-
-
-
-        //Un
-        float touchXDelta = 0;
-        if (Input.touchCount > 0)
-        {
-            theTouch = Input.GetTouch(0);
-
-            if (theTouch.phase == TouchPhase.Began)
-            {
-                touchXDelta = Input.GetTouch(0).deltaPosition.x / Screen.width;
-                touchStartPosition = theTouch.position;
-            }
-
-            else if (theTouch.phase == TouchPhase.Moved || theTouch.phase == TouchPhase.Ended)
-            {
-                touchXDelta = Input.GetTouch(0).deltaPosition.x / Screen.width;
-                touchEndPosition = theTouch.position;
-
-                float x = touchEndPosition.x - touchStartPosition.x;
-                float y = touchEndPosition.y - touchStartPosition.y;
-
-                
-            }
-        }
-
-        
-
-
-
-
-
-
-
-        float newX = 0;
-        
-        //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
-        //{
-        //    touchXDelta = Input.GetTouch(0).deltaPosition.x / Screen.width;
-        //}
-
-        //else if (Input.GetMouseButton(0))
-        //{
-        //    touchXDelta = Input.GetAxis("Mouse X");
-        //}
-        newX = transform.position.x + xSpeed * touchXDelta * Time.deltaTime;
-        newX = Mathf.Clamp(newX, -limitXLeft, limitXRight);
+        SwerveMobil();
         RotationBall();
-        Vector3 newPosition = new Vector3(newX, transform.position.y, transform.position.z + currentSpeed * Time.deltaTime);
-
-        transform.position = newPosition;
 
 
-
-
-
-
-
-
-
-
-        //if (Input.touchCount > 0)
-        //{
-        //    if (Input.GetTouch(0).phase == TouchPhase.Began)
-        //    {
-        //        lastTouchedX = Input.GetTouch(0).position.x;
-        //    }
-        //    else if (Input.GetTouch(0).phase == TouchPhase.Began)
-        //    {
-        //        touchXDelta = 5 * (lastTouchedX - Input.GetTouch(0).position.x / Screen.width);
-        //        lastTouchedX = Input.GetTouch(0).position.x;
-        //    }
-        //}
         if (runningSpeed < 0)
         {
             LevelController.Current.GameOver();
-        }
-        if (finished)
-        {
-           //Hýza göre camlarý kýrarak 2x, 3x, 4x ,5x e geçip durduðu yerdeki xle puaný çarpýlacaðý yer.
-
         }
         if (transform.position.x <= -2f && transform.position.z <275f)
         {
@@ -159,17 +80,12 @@ public class PlayerController : MonoBehaviour
         {
             LevelController.Current.currentspeedText.color = Color.red;
             LevelController.Current.currentSpeed.color = Color.red;
-            
         }
         else
         {
             LevelController.Current.currentspeedText.color =new Color32(49, 60, 222, 255);
             LevelController.Current.currentSpeed.color = new Color32(49, 60, 222, 255);
-            
         }
-        
-        
-
 
     }
 
@@ -178,9 +94,6 @@ public class PlayerController : MonoBehaviour
         runningSpeed += accumulatingSpeed;
         accumulatingSpeed = 0;
         runningSpeed -= 8f * Time.deltaTime;
-
-        energy.SetBool("energy", false);
-        energyy.SetBool("energy", false);
         if (runningSpeed <= 10)
         {
             runningSpeed = runningSpeed = -1f;
@@ -197,9 +110,6 @@ public class PlayerController : MonoBehaviour
     {
         runningSpeed -= 6.5f * Time.deltaTime;
         accumulatingSpeed += 16f * Time.deltaTime;
-        energy.SetBool("energy" , true);
-        energyy.SetBool("energy", true);
-        
     }
 
     public void ChangeSpeed(float value) // Oyunun baþlamadan önce karakterinin hýzýnýn sýfýrlandýðý kýsým.
@@ -271,6 +181,43 @@ public class PlayerController : MonoBehaviour
         ballTransform.Rotate(new Vector3(0, 0, -runningSpeed));
         
     }
-    
+
+    public void SwerveMobil()
+    {
+        currentSpeed = runningSpeed;
+        //Un
+        float touchXDelta = 0;
+        if (Input.touchCount > 0)
+        {
+            theTouch = Input.GetTouch(0);
+
+            if (theTouch.phase == TouchPhase.Began)
+            {
+                touchXDelta = Input.GetTouch(0).deltaPosition.x / Screen.width;
+                touchStartPosition = theTouch.position;
+            }
+
+            else if (theTouch.phase == TouchPhase.Moved || theTouch.phase == TouchPhase.Ended)
+            {
+                touchXDelta = Input.GetTouch(0).deltaPosition.x / Screen.width;
+                touchEndPosition = theTouch.position;
+
+                float x = touchEndPosition.x - touchStartPosition.x;
+                float y = touchEndPosition.y - touchStartPosition.y;
+
+
+            }
+        }
+
+        float newX = 0;
+
+        newX = transform.position.x + xSpeed * touchXDelta * Time.deltaTime;
+        newX = Mathf.Clamp(newX, -limitXLeft, limitXRight);
+        Vector3 newPosition = new Vector3(newX, transform.position.y, transform.position.z + currentSpeed * Time.deltaTime);
+
+        transform.position = newPosition;
+
+    }
+
 
 }
